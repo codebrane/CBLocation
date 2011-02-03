@@ -15,11 +15,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef struct {
-  float lat0;
-  float lon0;
-} NationalGridTrueOrigin;
-
 @interface CBLocationUtils : NSObject {
   // Airy 1830 major & minor semi-axes
   float a;
@@ -88,6 +83,5 @@ typedef struct {
 -(float)N:(float)latitude longitude:(float)longitude;
 -(float)E:(float)latitude longitude:(float)longitude;
 -(NSString *)gridrefNumToLet:(float)E N:(float)N digits:(int)digits;
-//-(NationalGridTrueOrigin*)getNationalGridTrueOrigin;
 
 @end
