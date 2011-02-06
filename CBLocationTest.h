@@ -23,6 +23,8 @@
 @interface CBLocationTest : SenTestCase {
 }
 
+-(void)testWGS84toOSGB36;
+-(void)testOSGB36toWGS84;
 -(void)testLatLongToOSGrid;
 
 @end
