@@ -18,11 +18,32 @@
 
 @implementation CBLocation
 
++(CBLatLon *)convertOSGB36toWGS84:(float)latitude longitude:(float)longitude {
+  CBLocationUtils *utils = [[CBLocationUtils alloc] init];
+  LatLon* _latLon = [utils OSGB36toWGS84:latitude longitude:longitude];
+  CBLatLon *latLon = malloc(sizeof(CBLatLon));
+  latLon->latitude = _latLon->latitude;
+  latLon->longitude = _latLon->longitude;
+  free(_latLon);
+  [utils release];
+  return latLon;
+}
+
++(CBLatLon *)convertWGS84toOSGB36:(float)latitude longitude:(float)longitude {
+  CBLocationUtils *utils = [[CBLocationUtils alloc] init];
+  LatLon* _latLon = [utils WGS84toOSGB36:latitude longitude:longitude];
+  CBLatLon *latLon = malloc(sizeof(CBLatLon));
+  latLon->latitude = _latLon->latitude;
+  latLon->longitude = _latLon->longitude;
+  free(_latLon);
+  [utils release];
+  return latLon;
+}
+
 +(NSString *)OSGridFromLatitude:(double)latitutde andLongitude:(double)longitude {
   CBLocationUtils *utils = [[CBLocationUtils alloc] init];
   double northing = [utils N:latitutde longitude:longitude];
   double easting = [utils E:latitutde longitude:longitude];
-  
   NSString *gridref = [utils gridrefNumToLet:easting N:northing digits:8];
   [utils release];
   return gridref;
