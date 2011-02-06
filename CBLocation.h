@@ -15,9 +15,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef struct {
+  float latitude;
+  float longitude;
+  float height;
+} CBLatLon;
+
 @interface CBLocation : NSObject {
 }
 
++(CBLatLon*)convertOSGB36toWGS84:(float)latitude longitude:(float)longitude;
++(CBLatLon*)convertWGS84toOSGB36:(float)latitude longitude:(float)longitude;
 +(NSString *)OSGridFromLatitude:(double)latitutde andLongitude:(double)longitude;
 
 @end
