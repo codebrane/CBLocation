@@ -1,3 +1,5 @@
 .DS_Store?
 build
 api
+CBLocation.xcodeproj/*.mode1v3
+CBLocation.xcodeproj/*.pbxuser
