@@ -15,7 +15,40 @@
 
 #import <Foundation/Foundation.h>
 
+typedef struct {
+  float latitude;
+  float longitude;
+  float height;
+} LatLon;
+
+typedef struct {
+  float a;
+  float b;
+  float f;
+} Ellipse;
+
+typedef struct {
+  // m
+  float tx;
+  float ty;
+  float tz;
+  // sec
+  float rx;
+  float ry;
+  float rz;
+  // ppm
+  float s;
+} HelmertTransform;
+
 @interface CBLocationUtils : NSObject {
+  // ellipse parameters
+  Ellipse *WGS84;
+  Ellipse *Airy1830;
+  
+  // helmert transform parameters
+  HelmertTransform *WGS84toOSGB36;
+  HelmertTransform *OSGB36toWGS84;
+  
   // Airy 1830 major & minor semi-axes
   float a;
   float b;
@@ -53,12 +86,14 @@
 
 -(float)degreesToRadians:(float)degrees;
 -(float)radiansToDegrees:(float)radians;
+
 -(float)cosLatitude:(float)latitude;
 -(float)cos3Latitude:(float)latitude;
 -(float)cos5Latitude:(float)latitude;
 -(float)sinLatitude:(float)latitude;
 -(float)tan2Latitude:(float)latitude;
 -(float)tan4Latitude:(float)latitude;
+
 -(float)nu:(float)latitude;
 -(float)rho:(float)latitude;
 -(float)eta2:(float)latitude;
@@ -82,6 +117,11 @@
 -(float)dLon6:(float)longitude;
 -(float)N:(float)latitude longitude:(float)longitude;
 -(float)E:(float)latitude longitude:(float)longitude;
+
+-(LatLon*)OSGB36toWGS84:(float)latitude longitude:(float)longitude;
+-(LatLon*)WGS84toOSGB36:(float)latitude longitude:(float)longitude;
+-(LatLon*)convert:(float)latitude longitude:(float)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2;
+
 -(NSString *)gridrefNumToLet:(float)E N:(float)N digits:(int)digits;
 
 @end

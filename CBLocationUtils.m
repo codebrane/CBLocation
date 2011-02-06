@@ -31,6 +31,34 @@
 
 -(id)init {
   if (self = [super init]) {
+    WGS84 = malloc(sizeof(Ellipse));
+    WGS84->a = 6378137;
+    WGS84->b = 6356752.3142;
+    WGS84->f = 1/298.257223563;
+    
+    Airy1830 = malloc(sizeof(Ellipse));
+    Airy1830->a = 6377563.396;
+    Airy1830->b = 6356256.910;
+    Airy1830->f = 1/299.3249646;
+    
+    WGS84toOSGB36 = malloc(sizeof(HelmertTransform));
+    WGS84toOSGB36->tx = -446.448;
+    WGS84toOSGB36->ty = 125.157;
+    WGS84toOSGB36->tz = -542.060;
+    WGS84toOSGB36->rx = -0.1502;
+    WGS84toOSGB36->ry = -0.2470;
+    WGS84toOSGB36->rz = -0.8421;
+    WGS84toOSGB36->s = 20.4894;
+    
+    OSGB36toWGS84 = malloc(sizeof(HelmertTransform));
+    OSGB36toWGS84->tx = 446.448;
+    OSGB36toWGS84->ty = -125.157;
+    OSGB36toWGS84->tz = 542.060;
+    OSGB36toWGS84->rx = 0.1502;
+    OSGB36toWGS84->ry = 0.2470;
+    OSGB36toWGS84->rz = 0.8421;
+    OSGB36toWGS84->s = -20.4894;
+    
     self.a = 6377563.396;;
     self.b = 6356256.910;
     self.F0 = 0.9996012717;
@@ -45,6 +73,15 @@
   }
   
   return self;
+}
+
+-(void) dealloc {
+  free(WGS84);
+  free(Airy1830);
+  free(WGS84toOSGB36);
+  free(OSGB36toWGS84);
+  
+  [super dealloc];
 }
 
 // http://blog.digitalagua.com/2008/06/30/how-to-convert-degrees-to-radians-radians-to-degrees-in-objective-c/
@@ -219,6 +256,77 @@
   [secondGridLetter release];
   
   return gridRef;
+}
+
+-(LatLon*)OSGB36toWGS84:(float)latitude longitude:(float)longitude {
+  return [self convert:latitude longitude:longitude ellipse1:Airy1830 helmert:OSGB36toWGS84 ellipse2:WGS84];
+}
+
+-(LatLon*)WGS84toOSGB36:(float)latitude longitude:(float)longitude {
+  return [self convert:latitude longitude:longitude ellipse1:WGS84 helmert:WGS84toOSGB36 ellipse2:Airy1830];
+}
+
+-(LatLon*)convert:(float)latitude longitude:(float)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2 {
+  LatLon *latLon = malloc(sizeof(LatLon));
+  
+  latLon->latitude = [self degreesToRadians:latitude];
+  latLon->longitude = [self degreesToRadians:longitude];
+  
+  float _a = ellipse1->a;
+  float _b = ellipse1->b;
+  
+  float sinPhi = [self sinLatitude:latLon->latitude];
+  float cosPhi = [self cosLatitude:latLon->latitude];
+  float sinLambda = [self sinLatitude:latLon->longitude];
+  float cosLambda = [self cosLatitude:latLon->longitude];
+  float H = 0; // p1.height ???
+  
+  float eSq = (_a*_a - _b*_b) / (_a*_a);
+  float nu = _a / sqrt(1 - eSq*sinPhi*sinPhi);
+  
+  float x1 = (nu+H) * cosPhi * cosLambda;
+  float y1 = (nu+H) * cosPhi * sinLambda;
+  float z1 = ((1-eSq)*nu + H) * sinPhi;
+  
+  // apply helmert transform using appropriate params
+  float tx = helmert->tx;
+  float ty = helmert->ty;
+  float tz = helmert->tz;
+  
+  float rx = helmert->rx/3600 * M_PI/180;  // normalise seconds to radians
+  float ry = helmert->ry/3600 * M_PI/180;
+  float rz = helmert->rz/3600 * M_PI/180;
+  float s1 = helmert->s/1e6 + 1;              // normalise ppm to (s+1)
+  
+  // apply transform
+  float x2 = tx + x1*s1 - y1*rz + z1*ry;
+  float y2 = ty + x1*rz + y1*s1 - z1*rx;
+  float z2 = tz - x1*ry + y1*rx + z1*s1;
+  
+  // convert cartesian to polar coordinates (using ellipse 2)
+  _a = ellipse2->a;
+  _b = ellipse2->b;
+  
+  float precision = 4 / _a;  // results accurate to around 4 metres
+  
+  eSq = (_a*_a - _b*_b) / (_a*_a);
+  float p = sqrt(x2*x2 + y2*y2);
+  float phi = atan2(z2, p*(1-eSq));
+  float phiP = 2*M_PI;
+  while (abs(phi-phiP) > precision) {
+    nu = _a / sqrt(1 - eSq*sin(phi)*sin(phi));
+    phiP = phi;
+    phi = atan2(z2 + eSq*nu*sin(phi), p);
+  }
+  
+  float lambda = atan2(y2, x2);
+  H = p/cos(phi) - nu;
+  
+  latLon->latitude = [self radiansToDegrees:phi];
+  latLon->longitude = [self radiansToDegrees:lambda];
+  latLon->height = H;
+  
+  return latLon;
 }
 
 @end
