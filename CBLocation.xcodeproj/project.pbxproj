@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AA747D9F0F9514B9006C5449 /* CBLocation_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* CBLocation_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
+		F336C29A13002D6B00E3DB55 /* CBLatLon.h in Headers */ = {isa = PBXBuildFile; fileRef = F336C29813002D6B00E3DB55 /* CBLatLon.h */; };
+		F336C29B13002D6B00E3DB55 /* CBLatLon.m in Sources */ = {isa = PBXBuildFile; fileRef = F336C29913002D6B00E3DB55 /* CBLatLon.m */; };
 		F375352012F9CF03008E15FF /* CBLocationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F375351F12F9CF03008E15FF /* CBLocationTest.m */; };
 		F375352912F9CFA4008E15FF /* CBLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = F375352712F9CFA4008E15FF /* CBLocation.h */; };
 		F375352A12F9CFA4008E15FF /* CBLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = F375352812F9CFA4008E15FF /* CBLocation.m */; };
@@ -29,6 +31,8 @@
 		AA747D9E0F9514B9006C5449 /* CBLocation_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLocation_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libCBLocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCBLocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F336C29813002D6B00E3DB55 /* CBLatLon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLatLon.h; sourceTree = "<group>"; };
+		F336C29913002D6B00E3DB55 /* CBLatLon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLatLon.m; sourceTree = "<group>"; };
 		F34A2A2412FB00EC00FBFEC7 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		F375351612F9CE02008E15FF /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F375351712F9CE02008E15FF /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 			children = (
 				F375352712F9CFA4008E15FF /* CBLocation.h */,
 				F375352812F9CFA4008E15FF /* CBLocation.m */,
+				F336C29813002D6B00E3DB55 /* CBLatLon.h */,
+				F336C29913002D6B00E3DB55 /* CBLatLon.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -124,6 +130,7 @@
 			files = (
 				AA747D9F0F9514B9006C5449 /* CBLocation_Prefix.pch in Headers */,
 				F375352912F9CFA4008E15FF /* CBLocation.h in Headers */,
+				F336C29A13002D6B00E3DB55 /* CBLatLon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F375352A12F9CFA4008E15FF /* CBLocation.m in Sources */,
+				F336C29B13002D6B00E3DB55 /* CBLatLon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
