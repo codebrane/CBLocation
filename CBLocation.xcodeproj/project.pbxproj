@@ -13,8 +13,6 @@
 		F375352912F9CFA4008E15FF /* CBLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = F375352712F9CFA4008E15FF /* CBLocation.h */; };
 		F375352A12F9CFA4008E15FF /* CBLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = F375352812F9CFA4008E15FF /* CBLocation.m */; };
 		F375356A12F9D9CE008E15FF /* libCBLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAC07E0554694100DB518D /* libCBLocation.a */; };
-		F37535FB12F9E35A008E15FF /* CBLocationUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F37535F912F9E35A008E15FF /* CBLocationUtils.h */; };
-		F37535FC12F9E35A008E15FF /* CBLocationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F37535FA12F9E35A008E15FF /* CBLocationUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +36,6 @@
 		F375351F12F9CF03008E15FF /* CBLocationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLocationTest.m; sourceTree = "<group>"; };
 		F375352712F9CFA4008E15FF /* CBLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLocation.h; sourceTree = "<group>"; };
 		F375352812F9CFA4008E15FF /* CBLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLocation.m; sourceTree = "<group>"; };
-		F37535F912F9E35A008E15FF /* CBLocationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLocationUtils.h; sourceTree = "<group>"; };
-		F37535FA12F9E35A008E15FF /* CBLocationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLocationUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +94,6 @@
 			children = (
 				F375352712F9CFA4008E15FF /* CBLocation.h */,
 				F375352812F9CFA4008E15FF /* CBLocation.m */,
-				F37535F912F9E35A008E15FF /* CBLocationUtils.h */,
-				F37535FA12F9E35A008E15FF /* CBLocationUtils.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -130,7 +124,6 @@
 			files = (
 				AA747D9F0F9514B9006C5449 /* CBLocation_Prefix.pch in Headers */,
 				F375352912F9CFA4008E15FF /* CBLocation.h in Headers */,
-				F37535FB12F9E35A008E15FF /* CBLocationUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F375352A12F9CFA4008E15FF /* CBLocation.m in Sources */,
-				F37535FC12F9E35A008E15FF /* CBLocationUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
