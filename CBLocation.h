@@ -22,14 +22,6 @@ typedef struct {
   double height;
 } CBLatLon;
 
-
-
-typedef struct {
-  double latitude;
-  double longitude;
-  double height;
-} LatLon;
-
 typedef struct {
   double a;
   double b;
@@ -127,9 +119,9 @@ typedef struct {
 -(double)N:(double)latitude longitude:(double)longitude;
 -(double)E:(double)latitude longitude:(double)longitude;
 
--(LatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude;
--(LatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude;
--(LatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2;
+-(CBLatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude;
+-(CBLatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude;
+-(CBLatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2;
 
 -(NSString *)gridrefNumToLet:(double)E N:(double)N digits:(int)digits;
 
