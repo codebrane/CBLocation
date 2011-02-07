@@ -84,6 +84,24 @@
   [super dealloc];
 }
 
+
+
+-(CBLatLon *)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude {
+  return [self OSGB36toWGS84:latitude longitude:longitude];
+}
+
+-(CBLatLon *)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude {
+  return [self WGS84toOSGB36:latitude longitude:longitude];
+}
+
+-(NSString *)OSGridFromLatitude:(double)latitutde andLongitude:(double)longitude {
+  double northing = [self N:latitutde longitude:longitude];
+  double easting = [self E:latitutde longitude:longitude];
+  NSString *gridref = [self gridrefNumToLet:easting N:northing digits:8];
+  return gridref;
+}
+
+
 // http://blog.digitalagua.com/2008/06/30/how-to-convert-degrees-to-radians-radians-to-degrees-in-objective-c/
 -(double)degreesToRadians:(double)degrees {
   return degrees * M_PI / 180;
@@ -258,16 +276,16 @@
   return gridRef;
 }
 
--(LatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude {
+-(CBLatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude {
   return [self convert:latitude longitude:longitude ellipse1:Airy1830 helmert:OSGB36toWGS84 ellipse2:WGS84];
 }
 
--(LatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude {
+-(CBLatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude {
   return [self convert:latitude longitude:longitude ellipse1:WGS84 helmert:WGS84toOSGB36 ellipse2:Airy1830];
 }
 
--(LatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2 {
-  LatLon *latLon = malloc(sizeof(LatLon));
+-(CBLatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2 {
+  CBLatLon *latLon = malloc(sizeof(CBLatLon));
   
   latLon->latitude = [self degreesToRadians:latitude];
   latLon->longitude = [self degreesToRadians:longitude];
@@ -328,35 +346,5 @@
   
   return latLon;
 }
-
-
-
-
-
--(CBLatLon *)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude {
-  LatLon* _latLon = [self OSGB36toWGS84:latitude longitude:longitude];
-  CBLatLon *latLon = malloc(sizeof(CBLatLon));
-  latLon->latitude = _latLon->latitude;
-  latLon->longitude = _latLon->longitude;
-  free(_latLon);
-  return latLon;
-}
-
--(CBLatLon *)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude {
-  LatLon* _latLon = [self WGS84toOSGB36:latitude longitude:longitude];
-  CBLatLon *latLon = malloc(sizeof(CBLatLon));
-  latLon->latitude = _latLon->latitude;
-  latLon->longitude = _latLon->longitude;
-  free(_latLon);
-  return latLon;
-}
-
--(NSString *)OSGridFromLatitude:(double)latitutde andLongitude:(double)longitude {
-  double northing = [self N:latitutde longitude:longitude];
-  double easting = [self E:latitutde longitude:longitude];
-  NSString *gridref = [self gridrefNumToLet:easting N:northing digits:8];
-  return gridref;
-}
-
 
 @end
