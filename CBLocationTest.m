@@ -30,18 +30,16 @@
 -(void)testWGS84toOSGB36 {
 	CBLocation *cbLocation = [[CBLocation alloc] init];
   CBLatLon *latlon = [cbLocation convertWGS84toOSGB36:57.23722222222222 longitude:-5.905555555555556];
-  STAssertEquals(57.2374674379f, (float)latlon->latitude, @"testWGS84toOSGB36 latitude not working! returned %f", latlon->latitude);
-  STAssertEquals(-5.904435f, (float)latlon->longitude, @"testWGS84toOSGB36 longitude not working! returned %f", latlon->longitude);
-  free(latlon);
+  STAssertEquals(57.2374674379f, (float)latlon.latitude, @"testWGS84toOSGB36 latitude not working! returned %f", latlon.latitude);
+  STAssertEquals(-5.904435f, (float)latlon.longitude, @"testWGS84toOSGB36 longitude not working! returned %f", latlon.longitude);
 	[cbLocation release];
 }
 
 -(void)testOSGB36toWGS84 {
 	CBLocation *cbLocation = [[CBLocation alloc] init];
   CBLatLon *latlon = [cbLocation convertOSGB36toWGS84:57.237467437924735 longitude:-5.904435228421011];
-  STAssertEquals(57.2372222144f, (float)latlon->latitude, @"testOSGB36toWGS84 latitude not working! returned %f", latlon->latitude);
-  STAssertEquals(-5.90555558974f, (float)latlon->longitude, @"testOSGB36toWGS84 longitude not working! returned %f", latlon->longitude);
-  free(latlon);
+  STAssertEquals(57.2372222144f, (float)latlon.latitude, @"testOSGB36toWGS84 latitude not working! returned %f", latlon.latitude);
+  STAssertEquals(-5.90555558974f, (float)latlon.longitude, @"testOSGB36toWGS84 longitude not working! returned %f", latlon.longitude);
 	[cbLocation release];
 }
 
