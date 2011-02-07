@@ -15,32 +15,41 @@
 
 #import <Foundation/Foundation.h>
 
+
 typedef struct {
-  float latitude;
-  float longitude;
-  float height;
+  double latitude;
+  double longitude;
+  double height;
+} CBLatLon;
+
+
+
+typedef struct {
+  double latitude;
+  double longitude;
+  double height;
 } LatLon;
 
 typedef struct {
-  float a;
-  float b;
-  float f;
+  double a;
+  double b;
+  double f;
 } Ellipse;
 
 typedef struct {
   // m
-  float tx;
-  float ty;
-  float tz;
+  double tx;
+  double ty;
+  double tz;
   // sec
-  float rx;
-  float ry;
-  float rz;
+  double rx;
+  double ry;
+  double rz;
   // ppm
-  float s;
+  double s;
 } HelmertTransform;
 
-@interface CBLocationUtils : NSObject {
+@interface CBLocation : NSObject {
   // ellipse parameters
   Ellipse *WGS84;
   Ellipse *Airy1830;
@@ -50,15 +59,15 @@ typedef struct {
   HelmertTransform *OSGB36toWGS84;
   
   // Airy 1830 major & minor semi-axes
-  float a;
-  float b;
+  double a;
+  double b;
   
   // NatGrid scale factor on central meridian
-  float F0;
+  double F0;
   
   // NatGrid true origin
-  float lat0;
-  float lon0;
+  double lat0;
+  double lon0;
   
   // northing & easting of true origin, metres
   double N0;
@@ -67,61 +76,68 @@ typedef struct {
   // eccentricity squared
   double e2;
   
-  float n;
-  float n2;
-  float n3;
+  double n;
+  double n2;
+  double n3;
 }
 
-@property float a;
-@property float b;
-@property float F0;
-@property float lat0;
-@property float lon0;
+@property double a;
+@property double b;
+@property double F0;
+@property double lat0;
+@property double lon0;
 @property double N0;
 @property double E0;
 @property double e2;
-@property float n;
-@property float n2;
-@property float n3;
+@property double n;
+@property double n2;
+@property double n3;
 
--(float)degreesToRadians:(float)degrees;
--(float)radiansToDegrees:(float)radians;
+-(double)degreesToRadians:(double)degrees;
+-(double)radiansToDegrees:(double)radians;
 
--(float)cosLatitude:(float)latitude;
--(float)cos3Latitude:(float)latitude;
--(float)cos5Latitude:(float)latitude;
--(float)sinLatitude:(float)latitude;
--(float)tan2Latitude:(float)latitude;
--(float)tan4Latitude:(float)latitude;
+-(double)cosLatitude:(double)latitude;
+-(double)cos3Latitude:(double)latitude;
+-(double)cos5Latitude:(double)latitude;
+-(double)sinLatitude:(double)latitude;
+-(double)tan2Latitude:(double)latitude;
+-(double)tan4Latitude:(double)latitude;
 
--(float)nu:(float)latitude;
--(float)rho:(float)latitude;
--(float)eta2:(float)latitude;
--(float)Ma:(float)latitude;
--(float)Mb:(float)latitude;
--(float)Mc:(float)latitude;
--(float)Md:(float)latitude;
--(float)M:(float)latitude;
--(float)I:(float)latitude;
--(float)II:(float)latitude;
--(float)III:(float)latitude;
--(float)IIIA:(float)latitude;
--(float)IV:(float)latitude;
--(float)V:(float)latitude;
--(float)VI:(float)latitude;
--(float)dLon:(float)longitude;
--(float)dLon2:(float)longitude;
--(float)dLon3:(float)longitude;
--(float)dLon4:(float)longitude;
--(float)dLon5:(float)longitude;
--(float)dLon6:(float)longitude;
--(float)N:(float)latitude longitude:(float)longitude;
--(float)E:(float)latitude longitude:(float)longitude;
+-(double)nu:(double)latitude;
+-(double)rho:(double)latitude;
+-(double)eta2:(double)latitude;
+-(double)Ma:(double)latitude;
+-(double)Mb:(double)latitude;
+-(double)Mc:(double)latitude;
+-(double)Md:(double)latitude;
+-(double)M:(double)latitude;
+-(double)I:(double)latitude;
+-(double)II:(double)latitude;
+-(double)III:(double)latitude;
+-(double)IIIA:(double)latitude;
+-(double)IV:(double)latitude;
+-(double)V:(double)latitude;
+-(double)VI:(double)latitude;
+-(double)dLon:(double)longitude;
+-(double)dLon2:(double)longitude;
+-(double)dLon3:(double)longitude;
+-(double)dLon4:(double)longitude;
+-(double)dLon5:(double)longitude;
+-(double)dLon6:(double)longitude;
+-(double)N:(double)latitude longitude:(double)longitude;
+-(double)E:(double)latitude longitude:(double)longitude;
 
--(LatLon*)OSGB36toWGS84:(float)latitude longitude:(float)longitude;
--(LatLon*)WGS84toOSGB36:(float)latitude longitude:(float)longitude;
--(LatLon*)convert:(float)latitude longitude:(float)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2;
+-(LatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude;
+-(LatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude;
+-(LatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2;
 
--(NSString *)gridrefNumToLet:(float)E N:(float)N digits:(int)digits;
+-(NSString *)gridrefNumToLet:(double)E N:(double)N digits:(int)digits;
+
+
+
+-(CBLatLon*)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude;
+-(CBLatLon*)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude;
+-(NSString *)OSGridFromLatitude:(double)latitutde andLongitude:(double)longitude;
+
 
 @end
