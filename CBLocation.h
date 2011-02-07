@@ -15,12 +15,7 @@
 
 #import <Foundation/Foundation.h>
 
-
-typedef struct {
-  double latitude;
-  double longitude;
-  double height;
-} CBLatLon;
+#import "CBLatLon.h"
 
 typedef struct {
   double a;
