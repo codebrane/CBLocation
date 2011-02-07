@@ -285,18 +285,18 @@
 }
 
 -(CBLatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2 {
-  CBLatLon *latLon = malloc(sizeof(CBLatLon));
+  CBLatLon *latLon = [[[CBLatLon alloc] init] autorelease];
   
-  latLon->latitude = [self degreesToRadians:latitude];
-  latLon->longitude = [self degreesToRadians:longitude];
+  latLon.latitude = [self degreesToRadians:latitude];
+  latLon.longitude = [self degreesToRadians:longitude];
   
   double _a = ellipse1->a;
   double _b = ellipse1->b;
   
-  double sinPhi = [self sinLatitude:latLon->latitude];
-  double cosPhi = [self cosLatitude:latLon->latitude];
-  double sinLambda = [self sinLatitude:latLon->longitude];
-  double cosLambda = [self cosLatitude:latLon->longitude];
+  double sinPhi = [self sinLatitude:latLon.latitude];
+  double cosPhi = [self cosLatitude:latLon.latitude];
+  double sinLambda = [self sinLatitude:latLon.longitude];
+  double cosLambda = [self cosLatitude:latLon.longitude];
   double H = 0; // p1.height ???
   
   double eSq = (_a*_a - _b*_b) / (_a*_a);
@@ -340,9 +340,8 @@
   double lambda = atan2(y2, x2);
   H = p/cos(phi) - nu;
   
-  latLon->latitude = [self radiansToDegrees:phi];
-  latLon->longitude = [self radiansToDegrees:lambda];
-  latLon->height = H;
+  latLon.latitude = [self radiansToDegrees:phi];
+  latLon.longitude = [self radiansToDegrees:lambda];
   
   return latLon;
 }
