@@ -72,8 +72,7 @@
 	CBLocation *cbLocation = [[CBLocation alloc] init];
 	NSString *osGridRef = [cbLocation OSGridRefFromLatitude:62.123f longitude:-10.123f error:&error];
 	STAssertEquals(1, [error code], @"testGridRefOutOfRange not working! returned %f", [error code]);
-  STAssertEqualObjects(@"00 0000 0000", osGridRef,
-                       @"testGridRefOutOfRange not working! returned %@", osGridRef);
+  STAssertEqualObjects(nil, osGridRef, @"testGridRefOutOfRange not working! returned %@", osGridRef);
 	[cbLocation release];
 }
 
