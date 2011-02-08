@@ -110,8 +110,7 @@ const float LATLON_OUT_OF_RANGE = 0.0f;
 		NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
     [errorDetail setValue:@"Coordinates out of range" forKey:NSLocalizedDescriptionKey];
     *error = [NSError errorWithDomain:@"com.codebrane.CBLocation.ErrorDomain" code:1 userInfo:errorDetail];
-		NSString *gridRef = [[[NSString alloc] initWithString:@"00 0000 0000"] autorelease];
-		return gridRef;
+		return nil;
 	}
 	
   double northing = [self N:latitude longitude:longitude];
