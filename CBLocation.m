@@ -29,6 +29,16 @@
 @synthesize n2;
 @synthesize n3;
 
+// The longitude limits of the OS grid system
+const float OSGB_LONGITUDE_MAX_EAST = 2.0f;
+const float OSGB_LONGITUDE_MAX_WEST = -10.0f;
+
+// The latitude limits of the OS grid system
+const float OSGB_LATITUDE_MIN = 50.0f;
+const float OSGB_LATITUDE_MAX = 62.0f;
+
+const float LATLON_OUT_OF_RANGE = 0.0f;
+
 -(id)init {
   if (self = [super init]) {
     WGS84 = malloc(sizeof(Ellipse));
@@ -86,19 +96,32 @@
 
 
 
--(CBLatLon *)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude {
-  return [self OSGB36toWGS84:latitude longitude:longitude];
+-(CBLatLon *)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude error:(NSError **)error {
+  return [self OSGB36toWGS84:latitude longitude:longitude error:error];
 }
 
--(CBLatLon *)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude {
-  return [self WGS84toOSGB36:latitude longitude:longitude];
+-(CBLatLon *)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude error:(NSError **)error {
+  return [self WGS84toOSGB36:latitude longitude:longitude error:error];
 }
 
--(NSString *)OSGridFromLatitude:(double)latitutde andLongitude:(double)longitude {
-  double northing = [self N:latitutde longitude:longitude];
-  double easting = [self E:latitutde longitude:longitude];
+-(NSString *)OSGridRefFromLatitude:(double)latitude longitude:(double)longitude error:(NSError **)error {
+	if ((latitude < OSGB_LATITUDE_MIN) || (latitude > OSGB_LATITUDE_MAX) ||
+		  (longitude < OSGB_LONGITUDE_MAX_WEST) || (longitude > OSGB_LONGITUDE_MAX_EAST)) {
+		NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
+    [errorDetail setValue:@"Coordinates out of range" forKey:NSLocalizedDescriptionKey];
+    *error = [NSError errorWithDomain:@"com.codebrane.CBLocation.ErrorDomain" code:1 userInfo:errorDetail];
+		NSString *gridRef = [[[NSString alloc] initWithString:@"00 0000 0000"] autorelease];
+		return gridRef;
+	}
+	
+  double northing = [self N:latitude longitude:longitude];
+  double easting = [self E:latitude longitude:longitude];
   NSString *gridref = [self gridrefNumToLet:easting N:northing digits:8];
   return gridref;
+}
+
+-(BOOL)isError:(CBLatLon*)latlon {
+	return ((latlon.latitude == LATLON_OUT_OF_RANGE) || (latlon.longitude == LATLON_OUT_OF_RANGE));
 }
 
 
@@ -276,16 +299,28 @@
   return gridRef;
 }
 
--(CBLatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude {
-  return [self convert:latitude longitude:longitude ellipse1:Airy1830 helmert:OSGB36toWGS84 ellipse2:WGS84];
+-(CBLatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude error:(NSError **)error {
+  return [self convert:latitude longitude:longitude ellipse1:Airy1830 helmert:OSGB36toWGS84 ellipse2:WGS84 error:error];
 }
 
--(CBLatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude {
-  return [self convert:latitude longitude:longitude ellipse1:WGS84 helmert:WGS84toOSGB36 ellipse2:Airy1830];
+-(CBLatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude error:(NSError **)error {
+  return [self convert:latitude longitude:longitude ellipse1:WGS84 helmert:WGS84toOSGB36 ellipse2:Airy1830 error:error];
 }
 
--(CBLatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2 {
+-(CBLatLon*)convert:(double)latitude longitude:(double)longitude
+														ellipse1:(Ellipse*)ellipse1
+														helmert:(HelmertTransform*)helmert
+														ellipse2:(Ellipse*)ellipse2
+													  error:(NSError **)error {
   CBLatLon *latLon = [[[CBLatLon alloc] init] autorelease];
+	
+	if ((latitude < OSGB_LATITUDE_MIN) || (latitude > OSGB_LATITUDE_MAX) ||
+		  (longitude < OSGB_LONGITUDE_MAX_WEST) || (longitude > OSGB_LONGITUDE_MAX_EAST)) {
+		NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
+    [errorDetail setValue:@"Coordinates out of range" forKey:NSLocalizedDescriptionKey];
+    *error = [NSError errorWithDomain:@"com.codebrane.CBLocation.ErrorDomain" code:1 userInfo:errorDetail];
+    return nil;
+	}
   
   latLon.latitude = [self degreesToRadians:latitude];
   latLon.longitude = [self degreesToRadians:longitude];
