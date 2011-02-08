@@ -80,6 +80,10 @@ typedef struct {
 @property double n2;
 @property double n3;
 
+-(CBLatLon*)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude error:(NSError **)error;
+-(CBLatLon*)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude error:(NSError **)error;
+-(NSString *)OSGridRefFromLatitude:(double)latitutde longitude:(double)longitude error:(NSError **)error;
+
 -(double)degreesToRadians:(double)degrees;
 -(double)radiansToDegrees:(double)radians;
 
@@ -114,17 +118,9 @@ typedef struct {
 -(double)N:(double)latitude longitude:(double)longitude;
 -(double)E:(double)latitude longitude:(double)longitude;
 
--(CBLatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude;
--(CBLatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude;
--(CBLatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2;
+-(CBLatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude error:(NSError **)error;
+-(CBLatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude error:(NSError **)error;
+-(CBLatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2 error:(NSError **)error;
 
 -(NSString *)gridrefNumToLet:(double)E N:(double)N digits:(int)digits;
-
-
-
--(CBLatLon*)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude;
--(CBLatLon*)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude;
--(NSString *)OSGridFromLatitude:(double)latitutde andLongitude:(double)longitude;
-
-
 @end
