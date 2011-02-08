@@ -15,8 +15,104 @@
 
 #import "CBLocation.h"
 
+#pragma mark -
+#pragma mark Coordinate conversion struct definitions
+typedef struct {
+  double a;
+  double b;
+  double f;
+} Ellipse;
+
+typedef struct {
+  // m
+  double tx;
+  double ty;
+  double tz;
+  // sec
+  double rx;
+  double ry;
+  double rz;
+  // ppm
+  double s;
+} HelmertTransform;
+
+#pragma mark -
+#pragma mark Private interface definition
+// Private variables and methods
+@interface CBLocation ()
+
+#pragma mark Private interface properties definitions
+// ellipse parameters
+@property Ellipse *WGS84;
+@property Ellipse *Airy1830;
+
+// helmert transform parameters
+@property HelmertTransform *WGS84toOSGB36;
+@property HelmertTransform *OSGB36toWGS84;
+
+@property double a;
+@property double b;
+@property double F0;
+@property double lat0;
+@property double lon0;
+@property double N0;
+@property double E0;
+@property double e2;
+@property double n;
+@property double n2;
+@property double n3;
+
+#pragma mark Private interface method definitions
+-(double)degreesToRadians:(double)degrees;
+-(double)radiansToDegrees:(double)radians;
+
+-(double)cosLatitude:(double)latitude;
+-(double)cos3Latitude:(double)latitude;
+-(double)cos5Latitude:(double)latitude;
+-(double)sinLatitude:(double)latitude;
+-(double)tan2Latitude:(double)latitude;
+-(double)tan4Latitude:(double)latitude;
+
+-(double)nu:(double)latitude;
+-(double)rho:(double)latitude;
+-(double)eta2:(double)latitude;
+-(double)Ma:(double)latitude;
+-(double)Mb:(double)latitude;
+-(double)Mc:(double)latitude;
+-(double)Md:(double)latitude;
+-(double)M:(double)latitude;
+-(double)I:(double)latitude;
+-(double)II:(double)latitude;
+-(double)III:(double)latitude;
+-(double)IIIA:(double)latitude;
+-(double)IV:(double)latitude;
+-(double)V:(double)latitude;
+-(double)VI:(double)latitude;
+-(double)dLon:(double)longitude;
+-(double)dLon2:(double)longitude;
+-(double)dLon3:(double)longitude;
+-(double)dLon4:(double)longitude;
+-(double)dLon5:(double)longitude;
+-(double)dLon6:(double)longitude;
+-(double)N:(double)latitude longitude:(double)longitude;
+-(double)E:(double)latitude longitude:(double)longitude;
+
+-(CBLatLon*)OSGB36toWGS84:(double)latitude longitude:(double)longitude error:(NSError **)error;
+-(CBLatLon*)WGS84toOSGB36:(double)latitude longitude:(double)longitude error:(NSError **)error;
+-(CBLatLon*)convert:(double)latitude longitude:(double)longitude ellipse1:(Ellipse*)ellipse1 helmert:(HelmertTransform*)helmert ellipse2:(Ellipse*)ellipse2 error:(NSError **)error;
+-(NSString *)gridrefNumToLet:(double)E N:(double)N digits:(int)digits;
+
+@end
+
+#pragma mark -
+#pragma mark Private implementation
+// Implementation of public and private methods
 @implementation CBLocation
 
+@synthesize WGS84;
+@synthesize Airy1830;
+@synthesize WGS84toOSGB36;
+@synthesize OSGB36toWGS84;
 @synthesize a;
 @synthesize b;
 @synthesize F0;
@@ -92,31 +188,6 @@ const float OSGB_LATITUDE_MAX = 62.0f;
   [super dealloc];
 }
 
-
-
--(CBLatLon *)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude error:(NSError **)error {
-  return [self OSGB36toWGS84:latitude longitude:longitude error:error];
-}
-
--(CBLatLon *)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude error:(NSError **)error {
-  return [self WGS84toOSGB36:latitude longitude:longitude error:error];
-}
-
--(NSString *)OSGridRefFromLatitude:(double)latitude longitude:(double)longitude error:(NSError **)error {
-	if ((latitude < OSGB_LATITUDE_MIN) || (latitude > OSGB_LATITUDE_MAX) ||
-		  (longitude < OSGB_LONGITUDE_MAX_WEST) || (longitude > OSGB_LONGITUDE_MAX_EAST)) {
-		NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
-    [errorDetail setValue:@"Coordinates out of range" forKey:NSLocalizedDescriptionKey];
-    *error = [NSError errorWithDomain:@"com.codebrane.CBLocation.ErrorDomain" code:1 userInfo:errorDetail];
-		return nil;
-	}
-	
-  double northing = [self N:latitude longitude:longitude];
-  double easting = [self E:latitude longitude:longitude];
-  NSString *gridref = [self gridrefNumToLet:easting N:northing digits:8];
-  return gridref;
-}
-
 // http://blog.digitalagua.com/2008/06/30/how-to-convert-degrees-to-radians-radians-to-degrees-in-objective-c/
 -(double)degreesToRadians:(double)degrees {
   return degrees * M_PI / 180;
@@ -125,10 +196,6 @@ const float OSGB_LATITUDE_MAX = 62.0f;
 -(double)radiansToDegrees:(double)radians {
   return radians * 180 / M_PI;
 }
-
-
-
-
 
 -(double)cosLatitude:(double)latitude {
   return cos(latitude);
@@ -153,10 +220,6 @@ const float OSGB_LATITUDE_MAX = 62.0f;
 -(double)tan4Latitude:(double)latitude {
   return ([self tan2Latitude:latitude] * [self tan2Latitude:latitude]);
 }
-
-
-
-
 
 // transverse radius of curvature
 -(double)nu:(double)latitude {
@@ -300,10 +363,10 @@ const float OSGB_LATITUDE_MAX = 62.0f;
 }
 
 -(CBLatLon*)convert:(double)latitude longitude:(double)longitude
-														ellipse1:(Ellipse*)ellipse1
-														helmert:(HelmertTransform*)helmert
-														ellipse2:(Ellipse*)ellipse2
-													  error:(NSError **)error {
+           ellipse1:(Ellipse*)ellipse1
+            helmert:(HelmertTransform*)helmert
+           ellipse2:(Ellipse*)ellipse2
+              error:(NSError **)error {
   CBLatLon *latLon = [[[CBLatLon alloc] init] autorelease];
 	
 	if ((latitude < OSGB_LATITUDE_MIN) || (latitude > OSGB_LATITUDE_MAX) ||
@@ -371,6 +434,31 @@ const float OSGB_LATITUDE_MAX = 62.0f;
   latLon.longitude = [self radiansToDegrees:lambda];
   
   return latLon;
+}
+
+#pragma mark -
+#pragma mark Public implementation
+-(CBLatLon *)convertOSGB36toWGS84:(double)latitude longitude:(double)longitude error:(NSError **)error {
+  return [self OSGB36toWGS84:latitude longitude:longitude error:error];
+}
+
+-(CBLatLon *)convertWGS84toOSGB36:(double)latitude longitude:(double)longitude error:(NSError **)error {
+  return [self WGS84toOSGB36:latitude longitude:longitude error:error];
+}
+
+-(NSString *)OSGridRefFromLatitude:(double)latitude longitude:(double)longitude error:(NSError **)error {
+	if ((latitude < OSGB_LATITUDE_MIN) || (latitude > OSGB_LATITUDE_MAX) ||
+		  (longitude < OSGB_LONGITUDE_MAX_WEST) || (longitude > OSGB_LONGITUDE_MAX_EAST)) {
+		NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
+    [errorDetail setValue:@"Coordinates out of range" forKey:NSLocalizedDescriptionKey];
+    *error = [NSError errorWithDomain:@"com.codebrane.CBLocation.ErrorDomain" code:1 userInfo:errorDetail];
+		return nil;
+	}
+	
+  double northing = [self N:latitude longitude:longitude];
+  double easting = [self E:latitude longitude:longitude];
+  NSString *gridref = [self gridrefNumToLet:easting N:northing digits:8];
+  return gridref;
 }
 
 @end
