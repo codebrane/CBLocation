@@ -37,8 +37,6 @@ const float OSGB_LONGITUDE_MAX_WEST = -10.0f;
 const float OSGB_LATITUDE_MIN = 50.0f;
 const float OSGB_LATITUDE_MAX = 62.0f;
 
-const float LATLON_OUT_OF_RANGE = 0.0f;
-
 -(id)init {
   if (self = [super init]) {
     WGS84 = malloc(sizeof(Ellipse));
@@ -118,11 +116,6 @@ const float LATLON_OUT_OF_RANGE = 0.0f;
   NSString *gridref = [self gridrefNumToLet:easting N:northing digits:8];
   return gridref;
 }
-
--(BOOL)isError:(CBLatLon*)latlon {
-	return ((latlon.latitude == LATLON_OUT_OF_RANGE) || (latlon.longitude == LATLON_OUT_OF_RANGE));
-}
-
 
 // http://blog.digitalagua.com/2008/06/30/how-to-convert-degrees-to-radians-radians-to-degrees-in-objective-c/
 -(double)degreesToRadians:(double)degrees {
