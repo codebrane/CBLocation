@@ -15,10 +15,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CBLatLon : NSObject {
-	double latitude;
-	double longitude;
-}
+@interface CBLatLon : NSObject
 
 @property double latitude;
 @property double longitude;
