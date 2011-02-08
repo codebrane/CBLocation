@@ -28,29 +28,52 @@
 // NG 6442 2303
 
 -(void)testWGS84toOSGB36 {
+	NSError *error = nil;
 	CBLocation *cbLocation = [[CBLocation alloc] init];
-  CBLatLon *latlon = [cbLocation convertWGS84toOSGB36:57.23722222222222 longitude:-5.905555555555556];
+  CBLatLon *latlon = [cbLocation convertWGS84toOSGB36:57.23722222222222 longitude:-5.905555555555556 error:&error];
+	STAssertEqualObjects(nil, error, @"testWGS84toOSGB36 not working! returned error %f", [error code]);
   STAssertEquals(57.2374674379f, (float)latlon.latitude, @"testWGS84toOSGB36 latitude not working! returned %f", latlon.latitude);
   STAssertEquals(-5.904435f, (float)latlon.longitude, @"testWGS84toOSGB36 longitude not working! returned %f", latlon.longitude);
 	[cbLocation release];
 }
 
 -(void)testOSGB36toWGS84 {
+	NSError *error = nil;
 	CBLocation *cbLocation = [[CBLocation alloc] init];
-  CBLatLon *latlon = [cbLocation convertOSGB36toWGS84:57.237467437924735 longitude:-5.904435228421011];
+  CBLatLon *latlon = [cbLocation convertOSGB36toWGS84:57.237467437924735 longitude:-5.904435228421011 error:&error];
+	STAssertEqualObjects(nil, error, @"testOSGB36toWGS84 not working! returned error %f", [error code]);
   STAssertEquals(57.2372222144f, (float)latlon.latitude, @"testOSGB36toWGS84 latitude not working! returned %f", latlon.latitude);
   STAssertEquals(-5.90555558974f, (float)latlon.longitude, @"testOSGB36toWGS84 longitude not working! returned %f", latlon.longitude);
 	[cbLocation release];
 }
 
 -(void)testLatLongToOSGrid {
+	NSError *error = nil;
   double latitude = 55.8620f; // N
   double longitude = -4.2450f; // W
 	CBLocation *cbLocation = [[CBLocation alloc] init];
-  NSString *osGridRef = [cbLocation OSGridFromLatitude:latitude andLongitude:longitude];
-	NSLog(@"%@", osGridRef);
+  NSString *osGridRef = [cbLocation OSGridRefFromLatitude:latitude longitude:longitude error:&error];
+	STAssertEqualObjects(nil, error, @"testLatLongToOSGrid not working! returned error %f", [error code]);
   STAssertEqualObjects(@"NS 5951 6547", osGridRef,
                        @"testLatLongToOSGrid not working! returned %@", osGridRef);
+	[cbLocation release];
+}
+
+-(void)testLatLonOutOfRange {
+	NSError *error = nil;
+	CBLocation *cbLocation = [[CBLocation alloc] init];
+	CBLatLon *latlon = [cbLocation convertWGS84toOSGB36:62.123f longitude:-10.123f error:&error];
+	STAssertEqualObjects(nil, latlon, @"testLatLonOutOfRange not working! returned %f", latlon.latitude);
+	[cbLocation release];
+}
+
+-(void)testGridRefOutOfRange {
+	NSError *error = nil;
+	CBLocation *cbLocation = [[CBLocation alloc] init];
+	NSString *osGridRef = [cbLocation OSGridRefFromLatitude:62.123f longitude:-10.123f error:&error];
+	STAssertEquals(1, [error code], @"testGridRefOutOfRange not working! returned %f", [error code]);
+  STAssertEqualObjects(@"00 0000 0000", osGridRef,
+                       @"testGridRefOutOfRange not working! returned %@", osGridRef);
 	[cbLocation release];
 }
 
