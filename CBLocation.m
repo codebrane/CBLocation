@@ -346,7 +346,7 @@ const float OSGB_LATITUDE_MAX = 62.0f;
   int easting = floor((((int)E)%100000) / pow(10, 5-digits/2));
   int northing = floor((((int)N)%100000) / pow(10, 5-digits/2));
   
-  NSString* gridRef = [[NSString stringWithFormat:@"%@%@ %d %d", firstGridLetter, secondGridLetter, easting, northing] autorelease];
+  NSString* gridRef = [NSString stringWithFormat:@"%@%@ %d %d", firstGridLetter, secondGridLetter, easting, northing];
   
   [firstGridLetter release];
   [secondGridLetter release];
