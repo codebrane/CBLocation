@@ -6,3 +6,8 @@ CBLocation/CBLocation.xcodeproj/*.pbxuser
 CBLocation/CBLocation.xcodeproj/project.xcworkspace
 CBLocation/CBLocation.xcodeproj/xcuserdata
 CBLocation/DerivedData
+CBLocationTest/CBLocationTest.xcodeproj/*.mode1v3
+CBLocationTest/CBLocationTest.xcodeproj/*.pbxuser
+CBLocationTest/CBLocationTest.xcodeproj/project.xcworkspace
+CBLocationTest/CBLocationTest.xcodeproj/xcuserdata
+CBLocationTest/DerivedData
