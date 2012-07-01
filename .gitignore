@@ -1,8 +1,8 @@
 .DS_Store
 build
-api
-CBLocation.xcodeproj/*.mode1v3
-CBLocation.xcodeproj/*.pbxuser
-CBLocation.xcodeproj/project.xcworkspace
-CBLocation.xcodeproj/xcuserdata
-DerivedData
+CBLoation/api*
+CBLocation/CBLocation.xcodeproj/*.mode1v3
+CBLocation/CBLocation.xcodeproj/*.pbxuser
+CBLocation/CBLocation.xcodeproj/project.xcworkspace
+CBLocation/CBLocation.xcodeproj/xcuserdata
+CBLocation/DerivedData
