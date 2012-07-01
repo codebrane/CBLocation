@@ -130,37 +130,63 @@
     // http://wildwalks.com/bushcraft/technical-stuff/points-of-a-compass-cardinal-degree.html
     CLLocationDirection  theHeading = ((newHeading.trueHeading > 0) ? newHeading.trueHeading : newHeading.magneticHeading);
     NSString *compassDirection;
-    if ((theHeading >= 0) && (theHeading <= 11)) {
+    
+//    if ((theHeading == 0) || (theHeading == 360)) {
+//        compassDirection = [[NSString alloc] initWithString:@"N"];
+//    }
+//    else if (theHeading == 45) {
+//        compassDirection = [[NSString alloc] initWithString:@"NE"];
+//    }
+//    else if (theHeading == 90) {
+//        compassDirection = [[NSString alloc] initWithString:@"E"];
+//    }
+//    else if (theHeading ==135) {
+//        compassDirection = [[NSString alloc] initWithString:@"SE"];
+//    }
+//    else if (theHeading == 180) {
+//        compassDirection = [[NSString alloc] initWithString:@"S"];
+//    }
+//    else if (theHeading == 225) {
+//        compassDirection = [[NSString alloc] initWithString:@"SW"];
+//    }
+//    else if (theHeading == 270) {
+//        compassDirection = [[NSString alloc] initWithString:@"W"];
+//    }
+//    else if (theHeading == 315) {
+//        compassDirection = [[NSString alloc] initWithString:@"NW"];
+//    }
+
+    
+    if (theHeading == 0) {
+        compassDirection = [[NSString alloc] initWithString:@"N"];
+    }
+    else if ((theHeading >= 1) && (theHeading <= 22)) {
         compassDirection = [[NSString alloc] initWithString:@"N by E"];
     }
-    if ((theHeading >= 12) && (theHeading <= 22)) {
-        compassDirection = [[NSString alloc] initWithString:@"NNE"  ];
+    else if ((theHeading >= 23) && (theHeading <= 33)) {
+        compassDirection = [[NSString alloc] initWithString:@"NNE"];
     }
-    
-    
-    
-    else if ((theHeading >= 34) && (theHeading <= 45)) {
+    else if ((theHeading >= 34) && (theHeading <= 44)) {
+        compassDirection = [[NSString alloc] initWithString:@"NE by N"];
+    }
+    else if ((theHeading >= 45) && (theHeading <= 56)) {
         compassDirection = [[NSString alloc] initWithString:@"NE"];
     }
-    else if ((theHeading >= 46) && (theHeading <= 57)) {
+    else if ((theHeading >= 57) && (theHeading <= 67)) {
+        compassDirection = [[NSString alloc] initWithString:@"NE by E"];
+    }
+    else if ((theHeading >= 68) && (theHeading <= 78)) {
         compassDirection = [[NSString alloc] initWithString:@"ENE"];
     }
-
+    else if ((theHeading >= 79) && (theHeading <= 89)) {
+        compassDirection = [[NSString alloc] initWithString:@"E by N"];
+    }
     else if (theHeading == 90) {
         compassDirection = [[NSString alloc] initWithString:@"E"];
     }
-    else if ((theHeading >= 91) && (theHeading <= 135)) {
-        compassDirection = [[NSString alloc] initWithString:@"SWW"];
-    }
-    else if ((theHeading >= 136) && (theHeading <= 179)) {
-        compassDirection = [[NSString alloc] initWithString:@"SWW"];
-    }
-    else if (theHeading == 180) {
-        compassDirection = [[NSString alloc] initWithString:@"S"];
-    }
-    else if ((theHeading >= 181) && (theHeading <= 269)) {
-        compassDirection = [[NSString alloc] initWithString:@"SSW"];
-    }
+    
+    
+    
     
     //  NSString *courseString = [[NSString alloc] initWithFormat:@"%.3f", theHeading];
     NSString *courseString = [[NSString alloc] initWithFormat:@"%.0f", theHeading];
