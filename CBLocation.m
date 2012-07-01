@@ -185,7 +185,6 @@ const float OSGB_LATITUDE_MAX = 62.0f;
   free(WGS84toOSGB36);
   free(OSGB36toWGS84);
   
-  [super dealloc];
 }
 
 // http://blog.digitalagua.com/2008/06/30/how-to-convert-degrees-to-radians-radians-to-degrees-in-objective-c/
@@ -327,7 +326,7 @@ const float OSGB_LATITUDE_MAX = 62.0f;
   int n100k = floor(N / 100000);
   
   if (e100k < 0 || e100k > 6 || n100k < 0 || n100k > 12) {
-    return [[[NSString alloc] initWithString:@"out of range"] autorelease];
+    return [[NSString alloc] initWithString:@"out of range"];
   }
   
   // translate those into numeric equivalents of the grid letters
@@ -348,8 +347,6 @@ const float OSGB_LATITUDE_MAX = 62.0f;
   
   NSString* gridRef = [NSString stringWithFormat:@"%@%@ %d %d", firstGridLetter, secondGridLetter, easting, northing];
   
-  [firstGridLetter release];
-  [secondGridLetter release];
   
   return gridRef;
 }
@@ -367,7 +364,7 @@ const float OSGB_LATITUDE_MAX = 62.0f;
             helmert:(HelmertTransform*)helmert
            ellipse2:(Ellipse*)ellipse2
               error:(NSError **)error {
-  CBLatLon *latLon = [[[CBLatLon alloc] init] autorelease];
+  CBLatLon *latLon = [[CBLatLon alloc] init];
 	
 	if ((latitude < OSGB_LATITUDE_MIN) || (latitude > OSGB_LATITUDE_MAX) ||
 		  (longitude < OSGB_LONGITUDE_MAX_WEST) || (longitude > OSGB_LONGITUDE_MAX_EAST)) {
