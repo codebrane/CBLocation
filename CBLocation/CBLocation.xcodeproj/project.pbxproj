@@ -33,7 +33,6 @@
 		D2AAC07E0554694100DB518D /* libCBLocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCBLocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F336C29813002D6B00E3DB55 /* CBLatLon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLatLon.h; sourceTree = "<group>"; };
 		F336C29913002D6B00E3DB55 /* CBLatLon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLatLon.m; sourceTree = "<group>"; };
-		F34A2A2412FB00EC00FBFEC7 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		F375351612F9CE02008E15FF /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F375351712F9CE02008E15FF /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		F375351E12F9CF03008E15FF /* CBLocationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLocationTest.h; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				F375351712F9CE02008E15FF /* UnitTests-Info.plist */,
-				F34A2A2412FB00EC00FBFEC7 /* README */,
 			);
 			name = CBLocation;
 			sourceTree = "<group>";
