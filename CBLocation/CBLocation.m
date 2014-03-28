@@ -163,7 +163,7 @@ const float OSGB_LATITUDE_MAX = 62.0f;
     OSGB36toWGS84->rz = 0.8421;
     OSGB36toWGS84->s = -20.4894;
     
-    self.a = 6377563.396;;
+    self.a = 6377563.396;
     self.b = 6356256.910;
     self.F0 = 0.9996012717;
     self.N0 = -100000;
@@ -326,7 +326,7 @@ const float OSGB_LATITUDE_MAX = 62.0f;
   int n100k = floor(N / 100000);
   
   if (e100k < 0 || e100k > 6 || n100k < 0 || n100k > 12) {
-    return [[NSString alloc] initWithString:@"out of range"];
+    return @"out of range";
   }
   
   // translate those into numeric equivalents of the grid letters
