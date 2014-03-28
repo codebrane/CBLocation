@@ -11,3 +11,6 @@ CBLocationTest/CBLocationTest.xcodeproj/*.pbxuser
 CBLocationTest/CBLocationTest.xcodeproj/project.xcworkspace
 CBLocationTest/CBLocationTest.xcodeproj/xcuserdata
 CBLocationTest/DerivedData
+CBLocationJ/target
+CBLocationJ/.idea
+CBLocationJ/cblocation.iml
