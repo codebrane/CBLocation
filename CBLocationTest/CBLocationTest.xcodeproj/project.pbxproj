@@ -17,7 +17,8 @@
 		F35316DE15A088CF00F4FAF4 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35316DC15A088CF00F4FAF4 /* MainStoryboard_iPad.storyboard */; };
 		F35316E115A088CF00F4FAF4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35316E015A088CF00F4FAF4 /* ViewController.m */; };
 		F35316E815A08A6700F4FAF4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F35316E715A08A6700F4FAF4 /* CoreLocation.framework */; };
-		F3F07F8915A0A13800D053EA /* libCBLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C8159C15A0A07B003624DD /* libCBLocation.a */; };
+		F3E2910518E995AE00BBD71B /* libCBLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E2910418E995AE00BBD71B /* libCBLocation.a */; };
+		F3E2910718E9961B00BBD71B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E2910618E9961B00BBD71B /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +37,8 @@
 		F35316DF15A088CF00F4FAF4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F35316E015A088CF00F4FAF4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F35316E715A08A6700F4FAF4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		F3C8159C15A0A07B003624DD /* libCBLocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCBLocation.a; path = "../CBLocation/DerivedData/CBLocation/Build/Products/Debug-iphoneos/libCBLocation.a"; sourceTree = "<group>"; };
+		F3E2910418E995AE00BBD71B /* libCBLocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCBLocation.a; path = "../CBLocation/DerivedData/CBLocation/Build/Products/Debug-iphoneos/libCBLocation.a"; sourceTree = "<group>"; };
+		F3E2910618E9961B00BBD71B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,11 +46,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3F07F8915A0A13800D053EA /* libCBLocation.a in Frameworks */,
 				F35316E815A08A6700F4FAF4 /* CoreLocation.framework in Frameworks */,
 				F35316C815A088CF00F4FAF4 /* UIKit.framework in Frameworks */,
 				F35316CA15A088CF00F4FAF4 /* Foundation.framework in Frameworks */,
 				F35316CC15A088CF00F4FAF4 /* CoreGraphics.framework in Frameworks */,
+				F3E2910518E995AE00BBD71B /* libCBLocation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +60,8 @@
 		F35316B815A088CE00F4FAF4 = {
 			isa = PBXGroup;
 			children = (
-				F3C8159C15A0A07B003624DD /* libCBLocation.a */,
+				F3E2910618E9961B00BBD71B /* Default-568h@2x.png */,
+				F3E2910418E995AE00BBD71B /* libCBLocation.a */,
 				F35316E715A08A6700F4FAF4 /* CoreLocation.framework */,
 				F35316CD15A088CF00F4FAF4 /* CBLocationTest */,
 				F35316C615A088CF00F4FAF4 /* Frameworks */,
@@ -135,8 +138,13 @@
 		F35316BA15A088CE00F4FAF4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "University of the Highlands and Islands";
+				TargetAttributes = {
+					F35316C215A088CE00F4FAF4 = {
+						DevelopmentTeam = 22XZDU477U;
+					};
+				};
 			};
 			buildConfigurationList = F35316BD15A088CE00F4FAF4 /* Build configuration list for PBXProject "CBLocationTest" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -161,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F35316D215A088CF00F4FAF4 /* InfoPlist.strings in Resources */,
+				F3E2910718E9961B00BBD71B /* Default-568h@2x.png in Resources */,
 				F35316DB15A088CF00F4FAF4 /* MainStoryboard_iPhone.storyboard in Resources */,
 				F35316DE15A088CF00F4FAF4 /* MainStoryboard_iPad.storyboard in Resources */,
 			);
@@ -213,8 +222,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -226,10 +240,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -239,14 +257,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -259,14 +285,18 @@
 		F35316E515A088CF00F4FAF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alistair Young (BPXEW92G6M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CBLocationTest/CBLocationTest-Prefix.pch";
 				HEADER_SEARCH_PATHS = "../CBLocation/**";
 				INFOPLIST_FILE = "CBLocationTest/CBLocationTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../CBLocation/DerivedData/CBLocation/Build/Products/Debug-iphoneos\"",
+					"/Users/alistair/dev/codebrane/ios/CBLocation/CBLocation/CBLocation/DerivedData/CBLocation/Build/Products/Debug-iphoneos",
+					"/Users/alistair/dev/codebrane/ios/CBLocation/CBLocation/CBLocation/DerivedData/CBLocation/Build/Products/Debug-iphonesimulator",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -274,7 +304,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "503F2FDD-3EA1-4878-BD5D-97BCE0A68288";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -282,14 +312,18 @@
 		F35316E615A088CF00F4FAF4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alistair Young (BPXEW92G6M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CBLocationTest/CBLocationTest-Prefix.pch";
 				HEADER_SEARCH_PATHS = "../CBLocation/**";
 				INFOPLIST_FILE = "CBLocationTest/CBLocationTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../CBLocation/DerivedData/CBLocation/Build/Products/Debug-iphoneos\"",
+					"/Users/alistair/dev/codebrane/ios/CBLocation/CBLocation/CBLocation/DerivedData/CBLocation/Build/Products/Debug-iphoneos",
+					"/Users/alistair/dev/codebrane/ios/CBLocation/CBLocation/CBLocation/DerivedData/CBLocation/Build/Products/Debug-iphonesimulator",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -297,7 +331,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "503F2FDD-3EA1-4878-BD5D-97BCE0A68288";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

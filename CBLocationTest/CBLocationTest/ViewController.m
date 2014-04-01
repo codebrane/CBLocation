@@ -94,8 +94,8 @@
     NSString *altitudeString = [[NSString alloc] initWithFormat:@"%gm", newLocation.altitude];
     NSString *horizontalAccuracyString = [[NSString alloc] initWithFormat:@"%gm", newLocation.horizontalAccuracy];
     NSString *verticalAccuracyString = [[NSString alloc] initWithFormat:@"%gm", newLocation.verticalAccuracy];
-    NSString *directionString = [[NSString alloc] initWithFormat:@"%d", newLocation.course];
-    NSString *speedString = [[NSString alloc] initWithFormat:@"%d", newLocation.speed];
+    NSString *directionString = [[NSString alloc] initWithFormat:@"%f", newLocation.course];
+    NSString *speedString = [[NSString alloc] initWithFormat:@"%f", newLocation.speed];
     CLLocationDistance distance = [newLocation distanceFromLocation:startLocation];
     NSString *distanceString = [[NSString alloc] initWithFormat:@"%gm", distance];
     
@@ -121,7 +121,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
     if (newHeading.headingAccuracy < 0) {
-        NSString *courseString = [[NSString alloc] initWithString:@"NOT READY!"];
+        NSString *courseString = @"NOT READY!";
         headingLabel.text = courseString;
         return;
     }
@@ -158,31 +158,31 @@
 
     
     if (theHeading == 0) {
-        compassDirection = [[NSString alloc] initWithString:@"N"];
+        compassDirection = @"N";
     }
     else if ((theHeading >= 1) && (theHeading <= 22)) {
-        compassDirection = [[NSString alloc] initWithString:@"N by E"];
+        compassDirection = @"N by E";
     }
     else if ((theHeading >= 23) && (theHeading <= 33)) {
-        compassDirection = [[NSString alloc] initWithString:@"NNE"];
+        compassDirection = @"NNE";
     }
     else if ((theHeading >= 34) && (theHeading <= 44)) {
-        compassDirection = [[NSString alloc] initWithString:@"NE by N"];
+        compassDirection = @"NE by N";
     }
     else if ((theHeading >= 45) && (theHeading <= 56)) {
-        compassDirection = [[NSString alloc] initWithString:@"NE"];
+        compassDirection = @"NE";
     }
     else if ((theHeading >= 57) && (theHeading <= 67)) {
-        compassDirection = [[NSString alloc] initWithString:@"NE by E"];
+        compassDirection = @"NE by E";
     }
     else if ((theHeading >= 68) && (theHeading <= 78)) {
-        compassDirection = [[NSString alloc] initWithString:@"ENE"];
+        compassDirection = @"ENE";
     }
     else if ((theHeading >= 79) && (theHeading <= 89)) {
-        compassDirection = [[NSString alloc] initWithString:@"E by N"];
+        compassDirection = @"E by N";
     }
     else if (theHeading == 90) {
-        compassDirection = [[NSString alloc] initWithString:@"E"];
+        compassDirection = @"E";
     }
     
     
